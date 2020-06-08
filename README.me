@@ -1,0 +1,131 @@
+# North Carolina SAT/ACT Participation Project
+#### Brandon Greenspan: [LinkedIn](https://https://www.linkedin.com/in/brandonlgreenspan)
+
+## Problem Statement
+[An article in the Dallas Observer](https://www.dallasobserver.com/restaurants/dallas-restaurant-inspections-suffer-from-delays-poor-record-keeping-and-overworked-staff-10697588) unearthed a massive problem in the city's ability to follow up on restaurants requiring reinspection due to a low grade upon original inspection.  Dallas states that out of a scale from 1-100, any facility that scores between 70-79 requires reinspection within 30 days, between 60-69 requires reinspection within 10 days, and below 60 requires reinspection ASAP.
+
+The article points out many flaws in the city's ability to reinspect restaurants within its own self-imposed timeframes.  Until the department can hopefully become better-staffed, I am looking to build a classification model that can predict how a restaurant will perform upon reinspection.  This way, if the city is still struggling to reinspect restaurants in a timely manner, they can refer to the model in order to prioritize certain facilities to reinspect.
+
+The target metric for my model is to improve upon the baseline, which would be an accuracy score of greater than __60.38%__.
+
+## Executive Summary
+Coming from a sales background, I recognize that more action doesn't always lead to more results.  My analysis focuses on North Carolina because they have high participation rates for both the SAT and ACT.  The sample size from other states that have a low participation rate on one test skews the data too much otherwise.  Interestingly enough, North Carolina scores in the bottom 5 on the ACT, but falls right at the 50th percentile for the SAT.
+
+The most telling correlations for me were: the strong positive correlation between a high score on one test and participation on another , the strong negative correlation between participation rate and score for the same exam, and the strong negative correlation between scores on the SAT and scores on the ACT.  The latter two would imply that simply switching from one test to the other does very little towards accomplishing anything. All of these score "issues" seem more related to sample size than anything else.
+
+## Project Files
+These data came from this [SAT 2017 Scores](sat_2017.csv)
+- [ACT 2017 Scores](act_2017.csv)
+- [SAT 2018 Scores](sat_2018.csv)
+- [ACT 2018 Scores](act_2018.csv)
+
+
+## Data Dictionary
+|Feature|Type|Dataset|Description|
+|---|---|---|---|
+|**Restaurant Name**|*string*|Restaurant and Food Establishment Inspections (October 2016 to Present)|Name of Restaurant| 
+|**Inspection Type**|*string*|Restaurant and Food Establishment Inspections (October 2016 to Present)|Code indicating the inspection type, such as Routine, Follow-up, Complaint, Temporary and Mobile.|
+|**Inspection Date**|*datetime*|Restaurant and Food Establishment Inspections (October 2016 to Present)|Date the inspection for the facility was performed.| 
+|**Inspection Score**|*integer*|Restaurant and Food Establishment Inspections (October 2016 to Present)|The aggregate score from the inspection violations. Please note not every violation will reflect a point deduction as establishments are allowed to correct violations during the inspection process, and therefore no reduction in the overall score is reflected for the violation.| 
+|**Street Number**|*integer*|Restaurant and Food Establishment Inspections (October 2016 to Present)|Street number for the address of the facility.|
+|**Street Name**|*string*|Restaurant and Food Establishment Inspections (October 2016 to Present)|Street name for the address of the facility.| 
+|**Street Direction**|*string*|Restaurant and Food Establishment Inspections (October 2016 to Present)|Street direction for the address of the facility. For example, N, W, S, etc.|
+|**Street Type**|*string*|Restaurant and Food Establishment Inspections (October 2016 to Present)|Street type for the address of the facility. For example, AVE, LN, ST, etc.| 
+|**Street Unit**|*string*|Restaurant and Food Establishment Inspections (October 2016 to Present)|Unit number or apartment number for the address of the facility.| 
+|**Street Address**|*string*|Restaurant and Food Establishment Inspections (October 2016 to Present)|Full street address of the facility.| 
+|**Zip Code**|*integer*|Restaurant and Food Establishment Inspections (October 2016 to Present)|Zip Code of the facility's address.| 
+|**Violation Points - 1**|*integer*|Restaurant and Food Establishment Inspections (October 2016 to Present)|The amount of points assigned to this violation.| 
+|**Violation Detail - 1**|*string*|Restaurant and Food Establishment Inspections (October 2016 to Present)|Field used to describe the type of violation associated with the enforcement action.|
+|**Violation Memo - 1**|*string*|Restaurant and Food Establishment Inspections (October 2016 to Present)|This field is used for any additional comments about the enforcement action.| 
+|**Violation Points - 2**|*integer*|Restaurant and Food Establishment Inspections (October 2016 to Present)|The amount of points assigned to this violation.| 
+|**Violation Detail - 2**|*string*|Restaurant and Food Establishment Inspections (October 2016 to Present)|Field used to describe the type of violation associated with the enforcement action.|
+|**Violation Memo - 2**|*string*|Restaurant and Food Establishment Inspections (October 2016 to Present)|This field is used for any additional comments about the enforcement action.| 
+|**Violation Points - 3**|*integer*|Restaurant and Food Establishment Inspections (October 2016 to Present)|The amount of points assigned to this violation.| 
+|**Violation Detail - 3**|*string*|Restaurant and Food Establishment Inspections (October 2016 to Present)|Field used to describe the type of violation associated with the enforcement action.|
+|**Violation Memo - 3**|*string*|Restaurant and Food Establishment Inspections (October 2016 to Present)|This field is used for any additional comments about the enforcement action.| 
+|**Violation Points - 4**|*integer*|Restaurant and Food Establishment Inspections (October 2016 to Present)|The amount of points assigned to this violation.| 
+|**Violation Detail - 4**|*string*|Restaurant and Food Establishment Inspections (October 2016 to Present)|Field used to describe the type of violation associated with the enforcement action.|
+|**Violation Memo - 4**|*string*|Restaurant and Food Establishment Inspections (October 2016 to Present)|This field is used for any additional comments about the enforcement action.| 
+|**Violation Points - 5**|*integer*|Restaurant and Food Establishment Inspections (October 2016 to Present)|The amount of points assigned to this violation.| 
+|**Violation Detail - 5**|*string*|Restaurant and Food Establishment Inspections (October 2016 to Present)|Field used to describe the type of violation associated with the enforcement action.|
+|**Violation Memo - 5**|*string*|Restaurant and Food Establishment Inspections (October 2016 to Present)|This field is used for any additional comments about the enforcement action.| 
+|**Violation Points - 6**|*integer*|Restaurant and Food Establishment Inspections (October 2016 to Present)|The amount of points assigned to this violation.| 
+|**Violation Detail - 6**|*string*|Restaurant and Food Establishment Inspections (October 2016 to Present)|Field used to describe the type of violation associated with the enforcement action.|
+|**Violation Memo - 6**|*string*|Restaurant and Food Establishment Inspections (October 2016 to Present)|This field is used for any additional comments about the enforcement action.| 
+|**Violation Points - 7**|*integer*|Restaurant and Food Establishment Inspections (October 2016 to Present)|The amount of points assigned to this violation.| 
+|**Violation Detail - 7**|*string*|Restaurant and Food Establishment Inspections (October 2016 to Present)|Field used to describe the type of violation associated with the enforcement action.|
+|**Violation Memo - 7**|*string*|Restaurant and Food Establishment Inspections (October 2016 to Present)|This field is used for any additional comments about the enforcement action.| 
+|**Violation Points - 8**|*integer*|Restaurant and Food Establishment Inspections (October 2016 to Present)|The amount of points assigned to this violation.| 
+|**Violation Detail - 8**|*string*|Restaurant and Food Establishment Inspections (October 2016 to Present)|Field used to describe the type of violation associated with the enforcement action.|
+|**Violation Memo - 8**|*string*|Restaurant and Food Establishment Inspections (October 2016 to Present)|This field is used for any additional comments about the enforcement action.| 
+|**Violation Points - 9**|*integer*|Restaurant and Food Establishment Inspections (October 2016 to Present)|The amount of points assigned to this violation.| 
+|**Violation Detail - 9**|*string*|Restaurant and Food Establishment Inspections (October 2016 to Present)|Field used to describe the type of violation associated with the enforcement action.|
+|**Violation Memo - 9**|*string*|Restaurant and Food Establishment Inspections (October 2016 to Present)|This field is used for any additional comments about the enforcement action.| 
+|**Violation Points - 10**|*integer*|Restaurant and Food Establishment Inspections (October 2016 to Present)|The amount of points assigned to this violation.| 
+|**Violation Detail - 10**|*string*|Restaurant and Food Establishment Inspections (October 2016 to Present)|Field used to describe the type of violation associated with the enforcement action.|
+|**Violation Memo - 10**|*string*|Restaurant and Food Establishment Inspections (October 2016 to Present)|This field is used for any additional comments about the enforcement action.| 
+|**Violation Points - 11**|*integer*|Restaurant and Food Establishment Inspections (October 2016 to Present)|The amount of points assigned to this violation.| 
+|**Violation Detail - 11**|*string*|Restaurant and Food Establishment Inspections (October 2016 to Present)|Field used to describe the type of violation associated with the enforcement action.|
+|**Violation Memo - 11**|*string*|Restaurant and Food Establishment Inspections (October 2016 to Present)|This field is used for any additional comments about the enforcement action.| 
+|**Violation Points - 12**|*integer*|Restaurant and Food Establishment Inspections (October 2016 to Present)|The amount of points assigned to this violation.| 
+|**Violation Detail - 12**|*string*|Restaurant and Food Establishment Inspections (October 2016 to Present)|Field used to describe the type of violation associated with the enforcement action.|
+|**Violation Memo - 12**|*string*|Restaurant and Food Establishment Inspections (October 2016 to Present)|This field is used for any additional comments about the enforcement action.| 
+|**Violation Points - 13**|*integer*|Restaurant and Food Establishment Inspections (October 2016 to Present)|The amount of points assigned to this violation.| 
+|**Violation Detail - 13**|*string*|Restaurant and Food Establishment Inspections (October 2016 to Present)|Field used to describe the type of violation associated with the enforcement action.|
+|**Violation Memo - 13**|*string*|Restaurant and Food Establishment Inspections (October 2016 to Present)|This field is used for any additional comments about the enforcement action.| 
+|**Violation Points - 14**|*integer*|Restaurant and Food Establishment Inspections (October 2016 to Present)|The amount of points assigned to this violation.| 
+|**Violation Detail - 14**|*string*|Restaurant and Food Establishment Inspections (October 2016 to Present)|Field used to describe the type of violation associated with the enforcement action.|
+|**Violation Memo - 14**|*string*|Restaurant and Food Establishment Inspections (October 2016 to Present)|This field is used for any additional comments about the enforcement action.| 
+|**Violation Points - 15**|*integer*|Restaurant and Food Establishment Inspections (October 2016 to Present)|The amount of points assigned to this violation.| 
+|**Violation Detail - 15**|*string*|Restaurant and Food Establishment Inspections (October 2016 to Present)|Field used to describe the type of violation associated with the enforcement action.|
+|**Violation Memo - 15**|*string*|Restaurant and Food Establishment Inspections (October 2016 to Present)|This field is used for any additional comments about the enforcement action.| 
+|**Violation Points - 16**|*integer*|Restaurant and Food Establishment Inspections (October 2016 to Present)|The amount of points assigned to this violation.| 
+|**Violation Detail - 16**|*string*|Restaurant and Food Establishment Inspections (October 2016 to Present)|Field used to describe the type of violation associated with the enforcement action.|
+|**Violation Memo - 16**|*string*|Restaurant and Food Establishment Inspections (October 2016 to Present)|This field is used for any additional comments about the enforcement action.| 
+|**Violation Points - 17**|*integer*|Restaurant and Food Establishment Inspections (October 2016 to Present)|The amount of points assigned to this violation.| 
+|**Violation Detail - 17**|*string*|Restaurant and Food Establishment Inspections (October 2016 to Present)|Field used to describe the type of violation associated with the enforcement action.|
+|**Violation Memo - 17**|*string*|Restaurant and Food Establishment Inspections (October 2016 to Present)|This field is used for any additional comments about the enforcement action.| 
+|**Violation Points - 18**|*integer*|Restaurant and Food Establishment Inspections (October 2016 to Present)|The amount of points assigned to this violation.| 
+|**Violation Detail - 18**|*string*|Restaurant and Food Establishment Inspections (October 2016 to Present)|Field used to describe the type of violation associated with the enforcement action.|
+|**Violation Memo - 18**|*string*|Restaurant and Food Establishment Inspections (October 2016 to Present)|This field is used for any additional comments about the enforcement action.| 
+|**Violation Points - 19**|*integer*|Restaurant and Food Establishment Inspections (October 2016 to Present)|The amount of points assigned to this violation.| 
+|**Violation Detail - 19**|*string*|Restaurant and Food Establishment Inspections (October 2016 to Present)|Field used to describe the type of violation associated with the enforcement action.|
+|**Violation Memo - 19**|*string*|Restaurant and Food Establishment Inspections (October 2016 to Present)|This field is used for any additional comments about the enforcement action.| 
+|**Violation Points - 20**|*integer*|Restaurant and Food Establishment Inspections (October 2016 to Present)|The amount of points assigned to this violation.| 
+|**Violation Detail - 20**|*string*|Restaurant and Food Establishment Inspections (October 2016 to Present)|Field used to describe the type of violation associated with the enforcement action.|
+|**Violation Memo - 20**|*string*|Restaurant and Food Establishment Inspections (October 2016 to Present)|This field is used for any additional comments about the enforcement action.| 
+|**Violation Points - 21**|*integer*|Restaurant and Food Establishment Inspections (October 2016 to Present)|The amount of points assigned to this violation.| 
+|**Violation Detail - 21**|*string*|Restaurant and Food Establishment Inspections (October 2016 to Present)|Field used to describe the type of violation associated with the enforcement action.|
+|**Violation Memo - 21**|*string*|Restaurant and Food Establishment Inspections (October 2016 to Present)|This field is used for any additional comments about the enforcement action.| 
+|**Violation Points - 22**|*integer*|Restaurant and Food Establishment Inspections (October 2016 to Present)|The amount of points assigned to this violation.| 
+|**Violation Detail - 22**|*string*|Restaurant and Food Establishment Inspections (October 2016 to Present)|Field used to describe the type of violation associated with the enforcement action.|
+|**Violation Memo - 22**|*string*|Restaurant and Food Establishment Inspections (October 2016 to Present)|This field is used for any additional comments about the enforcement action.| 
+|**Violation Points - 23**|*integer*|Restaurant and Food Establishment Inspections (October 2016 to Present)|The amount of points assigned to this violation.| 
+|**Violation Detail - 23**|*string*|Restaurant and Food Establishment Inspections (October 2016 to Present)|Field used to describe the type of violation associated with the enforcement action.|
+|**Violation Memo - 23**|*string*|Restaurant and Food Establishment Inspections (October 2016 to Present)|This field is used for any additional comments about the enforcement action.| 
+|**Violation Points - 24**|*integer*|Restaurant and Food Establishment Inspections (October 2016 to Present)|The amount of points assigned to this violation.| 
+|**Violation Detail - 24**|*string*|Restaurant and Food Establishment Inspections (October 2016 to Present)|Field used to describe the type of violation associated with the enforcement action.|
+|**Violation Memo - 24**|*string*|Restaurant and Food Establishment Inspections (October 2016 to Present)|This field is used for any additional comments about the enforcement action.| 
+|**Violation Points - 25**|*integer*|Restaurant and Food Establishment Inspections (October 2016 to Present)|The amount of points assigned to this violation.| 
+|**Violation Detail - 25**|*string*|Restaurant and Food Establishment Inspections (October 2016 to Present)|Field used to describe the type of violation associated with the enforcement action.|
+|**Violation Memo - 25**|*string*|Restaurant and Food Establishment Inspections (October 2016 to Present)|This field is used for any additional comments about the enforcement action.| 
+|**Inspection Month**|*string*|Restaurant and Food Establishment Inspections (October 2016 to Present)|Added column to improve visualization of inspections by month| 
+|**Inspection Year**|*string*|Restaurant and Food Establishment Inspections (October 2016 to Present)|Added column to improve visualization of inspections for specific fiscal years| 
+|**Lat Long Location**|*string*|Restaurant and Food Establishment Inspections (October 2016 to Present)|Denotes a location point on a longitude line (perpendicular to the equator) and latitude line (parallel to the equator)| 
+
+## Conclusion
+  True academic curiousity and grit seems to be the only driver towards strong scores.  Luckily, North Carolina has the educational infrastructure with two growing major metro markets, one of them with a highly educated population to maintain and intellectually curious population.  Investing in startup growth in the Research Triangle keeps creativity and business in North Carolina.
+
+## Recommendations
+Students don't magically perform better on one test after performing poorly on the other, but students that do well on one test seem to be more likely to participate on the second test.  Our curriculum needs to excite students and make them feel more involved in education, so they willingly go beyond what's expected of them.  I support the reduction of yearly standardized state testing in North Carolina.  Since SAT/ACT is more of a college admissions test than a true ability test, our education system should feed into that.  The Raleigh-Durham area has world-class universities in Duke, UNC, & NC State, alond with the third highest CSA growth rate in the US.  We're attracting citizens who seek a good living, let's keep NC products learning in-state and staying in NC after school.  Continue to invest in Charlotte (7th highest growth rate) as a banking & finance hub, and expand entrepreneurial grants so students stay in the Research Triangle and build their own businesses.  Look to Austin as an example of growth.
+
+
+## References
+- [Restaurant and Food Establishment Inspections (October 2016 to Present)](https://www.dallasopendata.com/City-Services/Restaurant-and-Food-Establishment-Inspections-Octo/dri5-wcct/data)
+- [Failing Grade: Dallas Policies Protect the City’s Filthiest Restaurants from Health Inspectors](https://www.dallasobserver.com/restaurants/dallas-restaurant-inspections-suffer-from-delays-poor-record-keeping-and-overworked-staff-10697588?fbclid=IwAR1mRlqMu9cOYesZXcTHJt56Vds1LNJpwkNVHyGagjLFJAX0eIe9ONNXSh8)
+
+
+
+```python
+
+```
