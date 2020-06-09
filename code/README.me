@@ -1,23 +1,22 @@
-# North Carolina SAT/ACT Participation Project
-#### Brandon Greenspan: [LinkedIn](https://https://www.linkedin.com/in/brandonlgreenspan)
+# Predicting Future Food Inspection Scores in Dallas, TX
+#### Brandon Greenspan, Data Scientist [GitHub](https://github.com/BLGreenspan), [LinkedIn](https://www.linkedin.com/in/brandonlgreenspan/)
 
 ## Problem Statement
 [An article in the Dallas Observer](https://www.dallasobserver.com/restaurants/dallas-restaurant-inspections-suffer-from-delays-poor-record-keeping-and-overworked-staff-10697588) unearthed a massive problem in the city's ability to follow up on restaurants requiring reinspection due to a low grade upon original inspection.  Dallas states that out of a scale from 1-100, any facility that scores between 70-79 requires reinspection within 30 days, between 60-69 requires reinspection within 10 days, and below 60 requires reinspection ASAP.
 
-The article points out many flaws in the city's ability to reinspect restaurants within its own self-imposed timeframes.  Until the department can hopefully become better-staffed, I am looking to build a classification model that can predict how a restaurant will perform upon reinspection.  This way, if the city is still struggling to reinspect restaurants in a timely manner, they can refer to the model in order to prioritize certain facilities to reinspect.
+The article points out many flaws in the city's ability to reinspect restaurants within its own self-imposed timeframes.  Until the department can hopefully become better-staffed, I am looking to build a classification model that can predict how a restaurant will perform upon reinspection.  The classification model will take in inspection data, both text and numerical, and utilize NLP to predict the future inspection score based on the most recent inspection data.  This way, if the city is still struggling to reinspect restaurants in a timely manner, they can refer to the model in order to prioritize certain facilities to reinspect.
 
 The target metric for my model is to improve upon the baseline, which would be an accuracy score of greater than __60.38%__.
 
+
 ## Executive Summary
-Coming from a sales background, I recognize that more action doesn't always lead to more results.  My analysis focuses on North Carolina because they have high participation rates for both the SAT and ACT.  The sample size from other states that have a low participation rate on one test skews the data too much otherwise.  Interestingly enough, North Carolina scores in the bottom 5 on the ACT, but falls right at the 50th percentile for the SAT.
+According to their self-imposed food inspection timeline, the city of Dallas is having trouble adhering to said timeline.  A restuarant should not go more than 180 days without inspection if they scored above 80 on their previous inspection, and in a few cases, we found instances of restaurants going over 800 days (that's over two years!) between inspections.  This is more troublesome when restaurants score below 80, since a score in the 70's requires reinspection within 30 days, a score in the 60's requires reinspection within 10 days, and scores below 60 require reinspection ASAP in order to continue operating.
 
-The most telling correlations for me were: the strong positive correlation between a high score on one test and participation on another , the strong negative correlation between participation rate and score for the same exam, and the strong negative correlation between scores on the SAT and scores on the ACT.  The latter two would imply that simply switching from one test to the other does very little towards accomplishing anything. All of these score "issues" seem more related to sample size than anything else.
+Our problem statement frames that we are using previous data and NLP in order to predict future inspection scores.  This meant that as we clean our data, we have to engineer a feature as our target column, which would be the follow-up inspection score.  While we are not treating this as a time series problem, we do need to shift our data, which does mean we need to drop every restaurant's most recent inspection score in order to build our model.
 
-## Project Files
-These data came from this [SAT 2017 Scores](sat_2017.csv)
-- [ACT 2017 Scores](act_2017.csv)
-- [SAT 2018 Scores](sat_2018.csv)
-- [ACT 2018 Scores](act_2018.csv)
+Through EDA, we start with the bad and look at restaurants that performed poorly on inspections, were not inspected within the given timeframe, and then performed poorly again.  We do become a bit more optimistic when we discover that about 94% of restaurants are able to score an 80 or above.  We then investigate possible correlations between certain features and future inspection scores.  Before modeling, we do need to send our text data through Countvectorizer, but need to limit our models to 2100 features (instead of 800,000).
+
+After running a baseline model, two Logistic Regression models, Multinomial Naive Bayes, Decision Tree, and a Neural Network, are we able to select a model that beats our baseline model score of 60.38?  Regardless, can we investigate our coefficients in a manner that could help for future predictability, especially if we can run this again with more features?
 
 
 ## Data Dictionary
@@ -113,11 +112,20 @@ These data came from this [SAT 2017 Scores](sat_2017.csv)
 |**Inspection Year**|*string*|Restaurant and Food Establishment Inspections (October 2016 to Present)|Added column to improve visualization of inspections for specific fiscal years| 
 |**Lat Long Location**|*string*|Restaurant and Food Establishment Inspections (October 2016 to Present)|Denotes a location point on a longitude line (perpendicular to the equator) and latitude line (parallel to the equator)| 
 
-## Conclusion
-  True academic curiousity and grit seems to be the only driver towards strong scores.  Luckily, North Carolina has the educational infrastructure with two growing major metro markets, one of them with a highly educated population to maintain and intellectually curious population.  Investing in startup growth in the Research Triangle keeps creativity and business in North Carolina.
 
-## Recommendations
-Students don't magically perform better on one test after performing poorly on the other, but students that do well on one test seem to be more likely to participate on the second test.  Our curriculum needs to excite students and make them feel more involved in education, so they willingly go beyond what's expected of them.  I support the reduction of yearly standardized state testing in North Carolina.  Since SAT/ACT is more of a college admissions test than a true ability test, our education system should feed into that.  The Raleigh-Durham area has world-class universities in Duke, UNC, & NC State, alond with the third highest CSA growth rate in the US.  We're attracting citizens who seek a good living, let's keep NC products learning in-state and staying in NC after school.  Continue to invest in Charlotte (7th highest growth rate) as a banking & finance hub, and expand entrepreneurial grants so students stay in the Research Triangle and build their own businesses.  Look to Austin as an example of growth.
+## Conclusion/Recommendations
+Our Logistic Regression model with a Ridge penalty and usage of TFIDF was able to predict the next inspection grade of a restaurant with 69% accuracy, which did exceed our goal of defeating the baseline of 60.38% accuracy.
+
+It is worth taking note that while our model did predict more accurately than the baseline, unbalanced classes likely played a role.  With almost 95% of our data falling in the A or B range, our model did not even give one prediction as a D or F.  While the occurrence of a D or F is rare, the model appears completely incapable of predicting that value, which could be catastrophic if the model cannot predict a restaurant that will ultimately fail a health inspection.
+
+While keeping in mind that B's incorrectly predicted as A's and A's incorrectly predicted as B's technically result in the same outcome, any prediction of C should be a cause for alarm, since 2/3 of F's and 0 A's were predicted as C's.
+
+As for suggestions for the city of Dallas, if the staffing situation cannot improve, we should look to decrease the cadence of inpections for restaurants that have never scored below an A after two years of inspections under the same management.  My data is not able to determine if places that score that highly do so because of maintained obedience of guidelines or if they prioritize health & safety only when they expect an inspection.  While we hope the former is the case, we don't have the capacity of staff to fully investigate if the latter is true.
+
+## Next Steps
+The biggest drawback to this model is that we had to put a cap on max features when running CountVectorizer.  Without a cap, we end up with about 800,000 columns.  By using the max features hyperparameter in CountVectorizer, we likely excluded meaningful words or phrases that could have helped further in predicting future inspection scores, possibly identifying certain features than may have been able to predict a D or F score.  
+
+In order to get the best model, we need more budget and time to utilize AWS or any cloud computing service.
 
 
 ## References
